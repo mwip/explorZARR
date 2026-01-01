@@ -1,0 +1,25 @@
+[project]
+name = "explorzarr"
+version = "0.0.1-pre"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "click>=8.3.1",
+    "textual>=6.11.0",
+    "zarr[remote,storage]>=3.1.5",
+]
+
+[dependency-groups]
+dev = ["ruff>=0.14.10", "ty>=0.0.8"]
+tests = ["pytest>=9.0.2"]
+
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["ALL"]
+
+[tool.ruff.format]
+docstring-code-format = true
