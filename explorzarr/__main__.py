@@ -29,10 +29,15 @@ def dump(store: str, path: str | None, *, verbose: bool) -> None:
 @click.argument("store")
 @click.argument("path", required=False)
 @click.option("-l", "--level", type=int, help="Recursively list arrays in groups.")
+@click.option("-i", "--no-info", is_flag=True, help="Dont print the ZARR store info.")
+@click.option("-t", "--no-tree", is_flag=True, help="Dont print the ZARR store tree.")
 @click.option("-v", "--verbose", is_flag=True, help="Enable more text output.")
-def ls(store: str, path: str | None, *, level: int | None, verbose: bool) -> None:
+def ls(  # noqa: PLR0913
+    store: str, path: str | None, *, level: int | None, no_info: bool, no_tree: bool, verbose: bool
+) -> int:
     """List contents of ZARR store and sketch array shapes."""
-    return ls_fn(store=store, path=path, level=level, verbose=verbose)
+    ls_fn(store=store, path=path, level=level, no_info=no_info, no_tree=no_tree, verbose=verbose)
+    return 0
 
 
 @cli.command()
