@@ -17,6 +17,9 @@ tests = [
     "pytest>=9.0.2",
 ]
 
+[tool.setuptools]
+py-modules = ["explorzarr"]
+
 
 [tool.ruff]
 line-length = 100
