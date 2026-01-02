@@ -8,6 +8,7 @@ It provides three separate commands
 
 import click
 
+from explorzarr.dump import dump_fn
 from explorzarr.ls import ls_fn
 
 
@@ -18,11 +19,13 @@ def cli() -> None:
 
 @cli.command()
 @click.argument("store", nargs=1)
-@click.argument("path", required=False)
+@click.argument("array_path", nargs=1)
+@click.option("-f", "--full_array", is_flag=True, help="Enable more text output.")
 @click.option("-v", "--verbose", is_flag=True, help="Enable more text output.")
-def dump(store: str, path: str | None, *, verbose: bool) -> None:
+def dump(store: str, array_path: str, *, full_array: bool, verbose: bool) -> int:
     """Dump an array [with optional path]."""
-    raise NotImplementedError
+    dump_fn(store=store, array_path=array_path, full_array=full_array, verbose=verbose)
+    return 0
 
 
 @cli.command()

@@ -20,3 +20,18 @@ def fixture_zarr_small() -> Generator[Path]:
         root.store.close()
 
         yield f_path
+
+
+@pytest.fixture
+def fixture_zarr_tiny() -> Generator[Path]:
+    with tempfile.TemporaryDirectory(suffix=".zarr") as f:
+        f_path = Path(f)
+        root = zarr.open_group(store=f_path, mode="w")
+
+        grp = root.create_group(name="grp")
+
+        grp.create_array(name="ar1", data=np.ones((1, 2)))
+
+        root.store.close()
+
+        yield f_path
