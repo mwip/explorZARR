@@ -1,4 +1,4 @@
-from explorzarr.ls import ls_fn
+from explorzarr.ls import list_all_arrays, ls_fn
 
 
 def test_ls_correct_ouput(fixture_zarr_small, capsys):
@@ -21,3 +21,7 @@ No. groups  : 1
 
     captured = capsys.readouterr()
     assert captured.out == expected_output
+
+
+def test_list_all_arrays(fixture_zarr_small) -> None:
+    assert sorted(list_all_arrays(fixture_zarr_small)) == ["grp/ar1"]
