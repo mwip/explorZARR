@@ -1,7 +1,6 @@
 """ls.py is concerned with listing contents of a ZARR store."""
 
 import zarr
-import zarr.storage
 
 
 def ls_fn(  # noqa: PLR0913
