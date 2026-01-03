@@ -15,10 +15,14 @@ def ls_fn(  # noqa: PLR0913
     """List contents of ZARR store."""
     root = zarr.open_group(store, path=path, mode="r")
     if not no_info:
-        print(root.info_complete(), "\n")  # noqa: T201
+        info_lines = str(root.info_complete()).splitlines()
+        for line in [*info_lines, "\n"]:
+            print(line.rstrip())  # noqa: T201
 
     if not no_tree:
-        print(root.tree(level=level), "\n")  # noqa: T201
+        tree_lines = str(root.tree(level=level)).splitlines()
+        for line in [*tree_lines, "\n"]:
+            print(line.rstrip())  # noqa: T201
 
 
 def list_all_arrays(store: str) -> list[str]:
