@@ -1,6 +1,10 @@
 """ls.py is concerned with listing contents of a ZARR store."""
 
+import os
+
+import psutil
 import zarr
+from zarr.errors import ArrayNotFoundError, ContainsArrayError, GroupNotFoundError
 
 
 def ls_fn(  # noqa: PLR0913
@@ -13,13 +17,28 @@ def ls_fn(  # noqa: PLR0913
     verbose: bool = False,  # noqa: ARG001, unused ignoring `verbose` for now, will be relevant for remote stores
 ) -> None:
     """List contents of ZARR store."""
-    root = zarr.open_group(store, path=path, mode="r")
+    try:
+        root = zarr.open_group(store, path=path, mode="r")
+    except (GroupNotFoundError, ContainsArrayError):
+        if path is not None:
+            try:
+                root = zarr.open_array(store, path=path, mode="r")
+            except ArrayNotFoundError:
+                print(  # noqa: T201
+                    f"No object found in store {store} at path {path}."
+                    "\n--> Hint: Omit path to get more details about the groups and arrays in the"
+                    " ZARR store."
+                )
+                proc = psutil.Process(os.getpid())
+                cmdline = proc.cmdline()[:-1]
+                print("-->", *cmdline)  # noqa: T201
+                return
     if not no_info:
         info_lines = str(root.info_complete()).splitlines()
         for line in [*info_lines, "\n"]:
             print(line.rstrip())  # noqa: T201
 
-    if not no_tree:
+    if not no_tree and isinstance(root, zarr.Group):
         tree_lines = str(root.tree(level=level)).splitlines()
         for line in [*tree_lines, "\n"]:
             print(line.rstrip())  # noqa: T201
