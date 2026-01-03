@@ -1,7 +1,6 @@
 """ls.py is concerned with listing contents of a ZARR store."""
 
 import zarr
-import zarr.storage
 
 
 def ls_fn(  # noqa: PLR0913
@@ -20,3 +19,45 @@ def ls_fn(  # noqa: PLR0913
 
     if not no_tree:
         print(root.tree(level=level), "\n")  # noqa: T201
+
+
+def list_all_arrays(store: str) -> list[str]:
+    """List all arrays in a ZARR store.
+
+    Args:
+        store: ZARR store to list arrays from.
+
+    Returns:
+        List of all arrays in the store.
+
+    """
+    root = zarr.open_group(store, path=None, mode="r")
+    return list_arrays_recursively(root)
+
+
+def list_arrays_recursively(group: zarr.Group, path: str | None = None) -> list[str]:
+    """Recursively list all arrays in a Zarr group, including those in nested subgroups.
+
+    Args:
+        group: A Zarr group (or store root) to search for arrays.
+        path: The current path in the hierarchy, used for building full array paths.
+              Defaults to an empty string for the root group.
+
+    Returns:
+        A list of strings, where each string is the full path to an array in the group hierarchy.
+
+    Example:
+        >>> store = zarr.open("example.zarr", mode="r")
+        >>> arrays = list_arrays_recursively(store)
+        >>> print(arrays)
+        ['array1', 'group1/array2', 'group1/subgroup/array3']
+
+    """
+    arrays: list[str] = []
+    for name, item in group.members():
+        current_path: str = f"{path}/{name}" if path else name
+        if isinstance(item, zarr.Array):
+            arrays.append(current_path)
+        elif isinstance(item, zarr.Group):
+            arrays.extend(list_arrays_recursively(item, current_path))
+    return arrays
