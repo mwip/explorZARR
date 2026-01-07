@@ -8,9 +8,6 @@ It provides three separate commands
 
 import click
 
-from explorzarr.dump import dump_fn
-from explorzarr.ls import ls_fn
-
 
 @click.group()
 def cli() -> None:
@@ -24,6 +21,8 @@ def cli() -> None:
 @click.option("-v", "--verbose", is_flag=True, help="Enable more text output.")
 def dump(store: str, array_path: str, *, full_array: bool, verbose: bool) -> int:
     """Dump an array [with optional path]."""
+    from explorzarr.dump import dump_fn  # noqa: PLC0415
+
     dump_fn(store=store, array_path=array_path, full_array=full_array, verbose=verbose)
     return 0
 
@@ -39,6 +38,8 @@ def ls(  # noqa: PLR0913
     store: str, path: str | None, *, level: int | None, no_info: bool, no_tree: bool, verbose: bool
 ) -> int:
     """List contents of ZARR store and sketch array shapes."""
+    from explorzarr.ls import ls_fn  # noqa: PLC0415
+
     ls_fn(store=store, path=path, level=level, no_info=no_info, no_tree=no_tree, verbose=verbose)
     return 0
 
