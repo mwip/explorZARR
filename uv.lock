@@ -125,7 +125,7 @@ wheels = [
 [[package]]
 name = "explorzarr"
 version = "0.0.1rc0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "click" },
     { name = "psutil" },
