@@ -76,6 +76,15 @@ uv run -m explorzarr data/store.zarr grp/arr
   [12 17 32 46 97]]]
 ```
 
+# Install
+
+To install `explorzarr`, you can use `uv tool install`. See [here](https://docs.astral.sh/uv/getting-started/installation/) if you don't have `uv` installed yet.
+
+```shell
+uv tool install git+https://github.com/mwip/explorzarr
+```
+
+
 # Contributing
 
 ## Install `pre-commit`
