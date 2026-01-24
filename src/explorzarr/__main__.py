@@ -3,7 +3,7 @@
 It provides three separate commands
 - `dump`: dumps the contents of a specified array.
 - `ls`: lists the contents of a ZARR store.
-- `tui`: starts a interactive TUI session.
+- `tui`: starts an interactive TUI session.
 """
 
 import click
@@ -46,10 +46,12 @@ def ls(  # noqa: PLR0913
 
 @cli.command()
 @click.argument("store")
-@click.option("-v", "--verbose", is_flag=True, help="Enable more text output.")
-def tui(store: str, *, verbose: bool) -> None:
+def tui(store: str) -> None:
     """Start the interactive TUI for a ZARR store."""
-    raise NotImplementedError
+    from explorzarr.tui import ExplorZARRTui  # noqa: PLC0415
+
+    app = ExplorZARRTui(store)
+    app.run()
 
 
 if __name__ == "__main__":

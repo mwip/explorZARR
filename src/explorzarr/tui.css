@@ -1,0 +1,66 @@
+/* ZARR TUI CSS Styles */
+
+#title {
+    margin: 0 0;
+    text-style: bold;
+    background: $primary;
+    color: $surface;
+    padding: 0 2;
+    width: 100%;
+}
+
+#explorer-title {
+    margin: 1 0;
+    text-style: bold;
+    background: $secondary;
+    color: $surface;
+    padding: 0 2;
+}
+
+#metadata-title {
+    margin: 1 0;
+    text-style: bold;
+    background: $secondary;
+    color: $surface;
+    padding: 0 2;
+}
+
+#main-content {
+    margin: 0 0;
+}
+
+#explorer-panel {
+    width: 40%;
+    border: solid $primary;
+    margin: 0 0;
+}
+
+#metadata-panel {
+    width: 60%;
+    border: solid $primary;
+    margin: 0 1;
+    padding: 0 1;
+}
+
+/* Tree styling */
+.zarr-tree {
+    background: $surface;
+    color: $text;
+}
+
+.zarr-tree:focus {
+    background: $primary-lighten-1;
+}
+
+/* Metadata display styling */
+#metadata-display {
+    background: $surface;
+    color: $text;
+    overflow-y: auto;
+    height: 100%;
+}
+
+#command-bar {
+    padding: 0;
+    width: 100%;
+}
