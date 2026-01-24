@@ -35,7 +35,7 @@ No. groups  : 1
 If an array path is specified, the array's information is printed:
 
 ```shell
-uv run -m explorzarr data/store.zarr grp/ar1
+uv run -m explorzarr ls data/store.zarr grp/ar1
 ```
 ```
 Type               : Array
@@ -61,7 +61,7 @@ Chunks Initialized : 4
 The `explorzarr dump` utility allows to print the an excerpt of an array to the terminal. Or with the `-f` / `--full_array` the full array can be dumped to stdout.
 
 ```shell
-uv run -m explorzarr data/store.zarr grp/arr
+uv run -m explorzarr dump data/store.zarr grp/arr
 ```
 ```
 [[[ 1 39 26 29  6]
@@ -75,6 +75,16 @@ uv run -m explorzarr data/store.zarr grp/arr
   [51 54 71 42 21]
   [12 17 32 46 97]]]
 ```
+
+## `explorzarr tui`
+
+The `explorzarr tui` is intended for interactive exploration of ZARR stores.
+
+```shell
+uv run -m explorzarr tui data/store.zarr
+```
+
+![explorzarr tui example](doc/tui_example.jpg)
 
 # Install
 
